@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">android-mvi</string>
+    <string name="fetch_posts">Fetch Posts</string>
+</resources>
