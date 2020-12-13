@@ -2,8 +2,13 @@ package com.example.android_mvi.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -33,10 +38,41 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setSupportActionBar(toolbar)
+        val toolbar = supportActionBar
+        toolbar?.title = "Android MVI"
+
         setupUi()
         setupViewModel()
         observeViewModel()
         setupUiClickListener()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val currentTheme = AppCompatDelegate.getDefaultNightMode()
+        Log.d("MainActivity ","Theme $currentTheme")
+        return when(item.itemId){
+            R.id.dark_mode -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                return true
+            }
+
+            R.id.day_mode -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                return true
+            }
+
+            else -> {
+                 super.onOptionsItemSelected(item)
+            }
+        }
+
     }
 
     private fun setupUiClickListener() {
